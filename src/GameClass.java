@@ -6,8 +6,9 @@ public class GameClass{
 	
 	private List<GameChoices> gameChoiceList = Arrays.asList(GameChoices.values());
 	private int gamesWon;
-	private int gamesCompleted;
+	private int gamesLost;
 	private boolean gameWon;
+	private static final TARGET_SCORE = 11;
 	
 	public List<GameChoices> getGameChoiceList(){
 		return gameChoiceList;
@@ -17,23 +18,21 @@ public class GameClass{
 		
 		if(myChoice == theirChoice) return 0;
 		
-		gamesCompleted++;
-		
 		switch(myChoice){
 			case ROCK:
-				if(theirChoice == GameChoices.PAPER || theirChoice == GameChoices.SPOCK) return 2; 
+				if(theirChoice == GameChoices.PAPER || theirChoice == GameChoices.SPOCK){gamesLost++; return 2;} 
 				break;
 			case PAPER:
-				if(theirChoice == GameChoices.SCISSORS || theirChoice == GameChoices.LIZARD) return 2; 
+				if(theirChoice == GameChoices.SCISSORS || theirChoice == GameChoices.LIZARD){gamesLost++; return 2;} 
 				break;
 			case SCISSORS: 
-				if(theirChoice == GameChoices.ROCK || theirChoice == GameChoices.SPOCK) return 2; 
+				if(theirChoice == GameChoices.ROCK || theirChoice == GameChoices.SPOCK){gamesLost++; return 2;}
 				break;
 			case LIZARD:
-				if(theirChoice == GameChoices.ROCK || theirChoice == GameChoices.SCISSORS) return 2; 
+				if(theirChoice == GameChoices.ROCK || theirChoice == GameChoices.SCISSORS){gamesLost++; return 2;} 
 				break;
 			case SPOCK:
-				if(theirChoice == GameChoices.PAPER || theirChoice == GameChoices.LIZARD) return 2; 
+				if(theirChoice == GameChoices.PAPER || theirChoice == GameChoices.LIZARD){gamesLost++; return 2;} 
 				break;
 		}
 		
@@ -47,16 +46,16 @@ public class GameClass{
 		return gamesWon;
 	}
 	
-	public int getGamesCompleted(){
-		return gamesCompleted;
+	public int getGamesLost(){
+		return gamesLost;
 	}
 	
-	public boolean gameFinished(int targetScore, int maxNoOfGames){
+	public boolean gameFinished(){
 		
-		if (gamesWon == targetScore){
+		if (gamesWon == TARGET_SCORE){
 			gameWon = true;
 			return true;
-		}else if(gamesCompleted == maxNoOfGames){
+		}else if(gamesLost == TARGET_SCORE){
 			gameWon = false;
 			return true;
 		}
@@ -70,7 +69,8 @@ public class GameClass{
 	
 	public void reset(){
 		gamesWon = 0;
-		gamesCompleted = 0;
+		gamesLost = 0;
+		gameWon = false;
 	}
 	
 }
