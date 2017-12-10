@@ -8,7 +8,7 @@ public class GameClass{
 	private int gamesWon;
 	private int gamesLost;
 	private boolean gameWon;
-	private static final TARGET_SCORE = 11;
+	private static final int TARGET_SCORE = 11;
 	
 	public List<GameChoices> getGameChoiceList(){
 		return gameChoiceList;
